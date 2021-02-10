@@ -4,11 +4,15 @@
 # Example output: mac/10.13
 # Example output: linux/x86_64
 
+# NOTE(mateo): Hardcoding the 10.13 OSX version because the upstream Pants binaries
+# for the JVM backend are no longer being ported forward for every OS. Internally we also
+# assume similar binary compatability, hardcoding all OSX to 10.13 in internal upkeep env.sh.
+
 case "$(uname)" in
   "Darwin")
     os="mac"
     base="$(uname -r)"
-    os_version="10.$(( ${base%%.*} - 4))"
+    os_version="10.13"
     ;;
   "Linux")
     os="linux"
