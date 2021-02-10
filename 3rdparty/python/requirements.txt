@@ -1,13 +1,18 @@
 ansicolors==1.0.2
 beautifulsoup4>=4.3.2,<4.4
+boto3==1.14.42
+boto>=2.36.0
+botocore==1.17.42
+certifi==2018.4.16        # Pinned for cross-platform agreement.
+chardet==3.0.4
+cryptography>=2.8,<2.9
 cffi==1.11.1
 contextlib2==0.5.5
-boto3>=1.6.16
 coverage>=4.5,<4.6
 docutils>=0.12,<0.13
 fasteners==0.14.1
 faulthandler==2.6
-futures<4.0.0,>=2.2.0
+futures==2.2.0
 isort==4.2.5
 Markdown==2.1.1
 mock==2.0.0
@@ -17,19 +22,20 @@ pathspec==0.5.0
 parameterized==0.6.1
 pep8==1.6.2
 pex==1.3.2
-psutil==4.3.0
+psutil>=5.8.0
 pyflakes==1.1.0
 Pygments==2.1.3
-pyopenssl==17.3.0
 pystache==0.5.3
 pytest-cov>=2.5,<2.6
 pytest>=3.4,<4.0
 pywatchman==1.4.1
-requests[security]>=2.8.14
+requests<=2.8.14  # Removed [security] set, the unpinned cryptography is unbuildable for python2.7
+requests_futures>=0.9.4,<0.10
 scandir==1.2
 setproctitle==1.1.10
 setuptools==30.0.0
 subprocess32==3.2.7
 six>=1.9.0,<2
 thrift>=0.9.1
+urllib3<1.25.11,>=1.20
 wheel==0.29.0
