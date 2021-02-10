@@ -45,7 +45,10 @@ esac
 readonly CACHE_ROOT=${XDG_CACHE_HOME:-$HOME/.cache}/pants
 readonly NATIVE_ENGINE_CACHE_DIR=${CACHE_ROOT}/bin/native-engine
 
-readonly RUST_TOOLCHAIN="1.25.0"
+# Note(mateo): Upgraded to 1.27 from 1.25 to get fix to trait syntax in getopts.
+# This also required using the nightly cargo build so we could enable the rename-feature
+# (see "cargo install ensure-install" below.)
+readonly RUST_TOOLCHAIN="1.27.0"
 
 function calculate_current_hash() {
   # Cached and unstaged files, with ignored files excluded.
@@ -105,7 +108,10 @@ function ensure_native_build_prerequisites() {
   _wait_noisily "${CARGO_HOME}/bin/cargo" fetch --manifest-path "${NATIVE_ROOT}/Cargo.toml" || die
 
   if [[ ! -x "${CARGO_HOME}/bin/cargo-ensure-installed" ]]; then
-    "${CARGO_HOME}/bin/cargo" install cargo-ensure-installed >&2
+    # Enable nightly features to enable full build of getopts and ensure-installed.
+    "${CARGO_HOME}/bin/rustup" install nightly >&2
+    # Technically only requires the --feature='["rename-dependency"]' flag, but I couldn't get quite right on CLI.
+    "${CARGO_HOME}/bin/rustup" run nightly cargo install --all-features cargo-ensure-installed >&2
   fi
   "${CARGO_HOME}/bin/cargo" ensure-installed --package=cargo-ensure-installed --version=0.2.1 >&2
   "${CARGO_HOME}/bin/cargo" ensure-installed --package=protobuf --version=1.4.2 >&2

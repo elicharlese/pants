@@ -1,5 +1,15 @@
 # Pants Build System
 
+## Foursquare setup (must build on OSX and Linux)
+```
+$  brew uninstall rust rustup
+$  brew install pyenv
+$  pyenv install 2.7.17
+$  pyenv global 2.7.17
+???
+```
+
+
 Pants is a build system for software projects in a variety of languages.
 It works particularly well for a source code repository that contains
 many distinct projects.
